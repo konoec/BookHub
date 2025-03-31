@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import konoec.bookhub.domain.bookManagement.format.Format;
-import konoec.bookhub.domain.bookManagement.genre.Genre;
 import konoec.bookhub.domain.bookManagement.language.Language;
 import konoec.bookhub.domain.bookManagement.author.Author;
 import konoec.bookhub.domain.bookManagement.publisher.Publisher;
 import konoec.bookhub.domain.userManagement.user.User;
+import konoec.bookhub.domain.bookManagement.genre.Genre;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -45,10 +45,6 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "language_id")
     private Language language;
-
-    @ManyToOne
-    @JoinColumn(name = "genre_id")
-    private Genre genre;
 
     @Column(name = "page_count")
     private Integer pageCount;
@@ -97,4 +93,10 @@ public class Book {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords;
+
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BookGenre> bookGenres;
+
+    @Column(name = "image_path")
+    private String imagePath;
 }
