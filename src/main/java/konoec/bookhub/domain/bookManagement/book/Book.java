@@ -8,7 +8,6 @@ import konoec.bookhub.domain.bookManagement.language.Language;
 import konoec.bookhub.domain.bookManagement.author.Author;
 import konoec.bookhub.domain.bookManagement.publisher.Publisher;
 import konoec.bookhub.domain.userManagement.user.User;
-import konoec.bookhub.domain.bookManagement.genre.Genre;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -94,7 +93,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookGenre> bookGenres;
 
     @Column(name = "image_path")
