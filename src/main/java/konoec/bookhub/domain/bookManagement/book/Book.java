@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import konoec.bookhub.domain.bookManagement.format.Format;
+import konoec.bookhub.domain.bookManagement.genre.Genre;
 import konoec.bookhub.domain.bookManagement.language.Language;
 import konoec.bookhub.domain.bookManagement.author.Author;
 import konoec.bookhub.domain.bookManagement.publisher.Publisher;
@@ -93,8 +94,13 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BookKeyword> bookKeywords;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BookGenre> bookGenres;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "book_genres",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres;
 
     @Column(name = "image_path")
     private String imagePath;

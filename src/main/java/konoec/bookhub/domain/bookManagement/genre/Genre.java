@@ -1,7 +1,10 @@
 package konoec.bookhub.domain.bookManagement.genre;
 
 import jakarta.persistence.*;
+import konoec.bookhub.domain.bookManagement.book.Book;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +21,7 @@ public class Genre {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    @ManyToMany(mappedBy = "genres")
+    private List<Book> books;
 }
