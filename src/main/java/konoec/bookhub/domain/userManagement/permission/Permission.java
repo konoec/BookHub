@@ -1,7 +1,10 @@
 package konoec.bookhub.domain.userManagement.permission;
 
 import jakarta.persistence.*;
+import konoec.bookhub.domain.userManagement.role.Role;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +21,7 @@ public class Permission {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    @ManyToMany(mappedBy = "permissions")
+    private List<Role> roles;
 }

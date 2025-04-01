@@ -1,7 +1,10 @@
 package konoec.bookhub.domain.userManagement.user;
 
 import jakarta.persistence.*;
+import konoec.bookhub.domain.userManagement.role.Role;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -27,4 +30,12 @@ public class User {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
 }
