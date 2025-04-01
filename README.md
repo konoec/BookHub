@@ -1,7 +1,7 @@
 # BookHub
 
 ## Descripción
-BookHub es una aplicación desarrollada en Java que permite a los usuarios gestionar su colección de libros. La aplicación proporciona funcionalidades para añadir, editar, eliminar y buscar libros dentro de la colección.
+BookHub es una aplicación desarrollada en Java que permite a los usuarios gestionar su colección de libros. La aplicación proporciona funcionalidades para añadir, editar, eliminar, además de buscar libros dentro de la colección.
 
 ## Características
 - Añadir nuevos libros con detalles como título, autor, género y año de publicación.
