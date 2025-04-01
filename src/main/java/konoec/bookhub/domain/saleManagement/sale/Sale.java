@@ -3,8 +3,11 @@ package konoec.bookhub.domain.saleManagement.sale;
 import jakarta.persistence.*;
 import konoec.bookhub.domain.saleManagement.customer.Customer;
 import konoec.bookhub.domain.saleManagement.util.DocumentType;
+import konoec.bookhub.domain.saleManagement.util.PaymentType;
 import konoec.bookhub.domain.userManagement.user.User;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -25,17 +28,29 @@ public class Sale {
     private User user;
 
     @Column(nullable = false)
+    private Double subtotal;
+
+    @Column(nullable = false)
+    private Double taxAmount;
+
+    @Column(nullable = false)
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DocumentType documentType;
+    private PaymentType paymentType;
+
+    @Column(nullable = false)
+    private String invoiceNumber;
 
     @Column(nullable = false)
     private String series;
 
     @Column(nullable = false)
     private Integer correlative;
+
+    @Column(nullable = false)
+    private LocalDateTime issueDate;
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
