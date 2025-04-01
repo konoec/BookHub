@@ -3,10 +3,13 @@ package konoec.bookhub.domain.bookManagement.keyword;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import konoec.bookhub.domain.bookManagement.book.Book;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "keywords")
@@ -24,4 +27,7 @@ public class Keyword {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    @ManyToMany(mappedBy = "keywords")
+    private List<Book> books;
 }
