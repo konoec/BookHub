@@ -1,18 +1,12 @@
 package konoec.bookhub.domain.bookManagement.keyword;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import konoec.bookhub.domain.bookManagement.book.Book;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.*;
 
 @Entity
-@Table(name = "keywords")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,12 +16,12 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "La palabra clave es obligatoria")
+    @Size(min = 2, max = 30, message = "La palabra clave debe tener entre 2 y 30 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9\\s-]+$", message = "La palabra clave solo puede contener letras, números, espacios y guiones")
     @Column(nullable = false, unique = true)
     private String keyword;
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
-
-    @ManyToMany(mappedBy = "keywords")
-    private List<Book> books;
 }
