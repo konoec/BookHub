@@ -9,7 +9,6 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
