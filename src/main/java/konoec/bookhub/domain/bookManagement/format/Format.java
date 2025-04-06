@@ -13,7 +13,7 @@ public class Format {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String description;
+    private String name;
 
     @Column(nullable = false)
     private Boolean isDeleted = false;

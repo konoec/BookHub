@@ -14,11 +14,16 @@ public class AuthorService {
         return authorRepository.findAll();
     }
 
+    public Author findById(Long id) {
+        return authorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Autor no encontrado"));
+    }
+
     public Author save(Author author) {
         return authorRepository.save(author);
     }
 
-    public Author edit(Long id, Author author) {
+    public Author update(Long id, Author author) {
         return authorRepository.findById(id)
                 .map(existingAuthor -> {
                     existingAuthor.setName(author.getName());
