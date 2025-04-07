@@ -10,6 +10,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@Table(name = "permissions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +27,4 @@ public class Permission {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
-
-    @ManyToMany(mappedBy = "permissions")
-    private List<Role> roles;
 }

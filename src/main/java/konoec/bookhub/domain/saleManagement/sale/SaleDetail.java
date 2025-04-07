@@ -6,6 +6,7 @@ import konoec.bookhub.domain.bookManagement.book.Book;
 import lombok.*;
 
 @Entity
+@Table(name = "sale_details")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

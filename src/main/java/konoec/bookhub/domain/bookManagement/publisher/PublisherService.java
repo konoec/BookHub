@@ -40,4 +40,13 @@ public class PublisherService {
                 })
                 .orElseThrow(() -> new RuntimeException("Editor no encontrado"));
     }
+
+    public void activate(Long id) {
+        publisherRepository.findById(id)
+                .map(publisher -> {
+                    publisher.setIsDeleted(false);
+                    return publisherRepository.save(publisher);
+                })
+                .orElseThrow(() -> new RuntimeException("Editor no encontrado"));
+    }
 }

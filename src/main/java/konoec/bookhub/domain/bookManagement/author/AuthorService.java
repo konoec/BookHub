@@ -40,4 +40,13 @@ public class AuthorService {
                 })
                 .orElseThrow(() -> new RuntimeException("Autor no encontrado"));
     }
+
+    public void activate(Long id) {
+        authorRepository.findById(id)
+                .map(author -> {
+                    author.setIsDeleted(false);
+                    return authorRepository.save(author);
+                })
+                .orElseThrow(() -> new RuntimeException("Autor no encontrado"));
+    }
 }

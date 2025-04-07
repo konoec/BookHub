@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formatos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Formatos</h2>
+            <a th:href="@{/formats/new}" class="btn btn-primary">Nuevo Formato</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="format : ${formats}">
+                        <td th:text="${format.id}"></td>
+                        <td th:text="${format.name}"></td>
+                        <td>
+                            <span th:if="${format.isDeleted}" class="badge bg-danger">Inactivo</span>
+                            <span th:unless="${format.isDeleted}" class="badge bg-success">Activo</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/formats/{id}(id=${format.id})}" class="btn btn-info btn-sm">Ver</a>
+                            <a th:href="@{/formats/edit/{id}(id=${format.id})}" class="btn btn-warning btn-sm">Editar</a>
+                            <a th:if="${!format.isDeleted}" th:href="@{/formats/delete/{id}(id=${format.id})}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Estás seguro de que deseas eliminar este formato?')">Eliminar</a>
+                            <a th:if="${format.isDeleted}" th:href="@{/formats/activate/{id}(id=${format.id})}"
+                               class="btn btn-success btn-sm">Activar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

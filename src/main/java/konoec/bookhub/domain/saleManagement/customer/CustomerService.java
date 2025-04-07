@@ -45,4 +45,13 @@ public class CustomerService {
                 })
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
     }
+
+    public void activate(Long id) {
+        customerRepository.findById(id)
+                .map(customer -> {
+                    customer.setIsDeleted(false);
+                    return customerRepository.save(customer);
+                })
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+    }
 }

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Entity
+@Table(name = "genres")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

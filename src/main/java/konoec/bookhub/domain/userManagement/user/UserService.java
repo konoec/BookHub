@@ -48,6 +48,15 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 
+    public void activate(Long id) {
+        userRepository.findById(id)
+                .map(user -> {
+                    user.setIsDeleted(false);
+                    return userRepository.save(user);
+                })
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
     public User addRole(Long userId, Long roleId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));

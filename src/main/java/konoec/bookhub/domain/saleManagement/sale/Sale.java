@@ -8,8 +8,11 @@ import konoec.bookhub.domain.userManagement.user.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "sales")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -69,4 +72,7 @@ public class Sale {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
+
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
+    private List<SaleDetail> saleDetails = new ArrayList<>();
 }

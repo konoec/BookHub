@@ -40,4 +40,13 @@ public class PermissionService {
                 })
                 .orElseThrow(() -> new RuntimeException("Permiso no encontrado"));
     }
+
+    public void activate(Long id) {
+        permissionRepository.findById(id)
+                .map(permission -> {
+                    permission.setIsDeleted(false);
+                    return permissionRepository.save(permission);
+                })
+                .orElseThrow(() -> new RuntimeException("Permiso no encontrado"));
+    }
 }

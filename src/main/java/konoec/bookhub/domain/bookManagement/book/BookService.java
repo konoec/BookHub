@@ -67,6 +67,15 @@ public class BookService {
                 .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
     }
 
+    public void activate(Long id) {
+        bookRepository.findById(id)
+                .map(book -> {
+                    book.setIsDeleted(false);
+                    return bookRepository.save(book);
+                })
+                .orElseThrow(() -> new RuntimeException("Libro no encontrado"));
+    }
+
     public List<Book> findByGenreId(Long genreId) {
         return bookRepository.findByGenreId(genreId);
     }

@@ -10,11 +10,11 @@ import java.util.List;
 public class LanguageService {
     private final LanguageRepository languageRepository;
 
-    public List<Language> getLanguages() {
+    public List<Language> findAll() {
         return languageRepository.findAll();
     }
 
-    public Language getLanguageById(Long id) {
+    public Language findById(Long id) {
         return languageRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Idioma no encontrado"));
     }
@@ -36,6 +36,15 @@ public class LanguageService {
         languageRepository.findById(id)
                 .map(language -> {
                     language.setIsDeleted(true);
+                    return languageRepository.save(language);
+                })
+                .orElseThrow(() -> new RuntimeException("Idioma no encontrado"));
+    }
+
+    public void activate(Long id) {
+        languageRepository.findById(id)
+                .map(language -> {
+                    language.setIsDeleted(false);
                     return languageRepository.save(language);
                 })
                 .orElseThrow(() -> new RuntimeException("Idioma no encontrado"));

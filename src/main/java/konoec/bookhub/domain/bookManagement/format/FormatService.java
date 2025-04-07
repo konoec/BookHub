@@ -40,4 +40,13 @@ public class FormatService {
                 })
                 .orElseThrow(() -> new RuntimeException("Formato no encontrado"));
     }
+
+    public void activate(Long id) {
+        formatRepository.findById(id)
+                .map(format -> {
+                    format.setIsDeleted(false);
+                    return formatRepository.save(format);
+                })
+                .orElseThrow(() -> new RuntimeException("Formato no encontrado"));
+    }
 }

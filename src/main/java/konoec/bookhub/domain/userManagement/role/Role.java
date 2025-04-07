@@ -12,6 +12,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
+@Table(name = "roles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,9 +29,6 @@ public class Role {
 
     @Column(nullable = false)
     private Boolean isDeleted = false;
-
-    @ManyToMany(mappedBy = "roles")
-    private List<User> users;
 
     @NotEmpty(message = "El rol debe tener al menos un permiso")
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

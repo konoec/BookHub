@@ -40,4 +40,13 @@ public class GenreService {
                 })
                 .orElseThrow(() -> new RuntimeException("Género no encontrado"));
     }
+
+    public void activate(Long id) {
+        genreRepository.findById(id)
+                .map(genre -> {
+                    genre.setIsDeleted(false);
+                    return genreRepository.save(genre);
+                })
+                .orElseThrow(() -> new RuntimeException("Género no encontrado"));
+    }
 }

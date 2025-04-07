@@ -66,6 +66,13 @@ public class SaleService {
         saleRepository.save(sale);
     }
 
+    public void activate(Long id) {
+        Sale sale = saleRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Venta no encontrada"));
+        sale.setIsDeleted(false);
+        saleRepository.save(sale);
+    }
+
     public Sale updateSale(Long id, Sale sale) {
         return saleRepository.findById(id)
                 .map(existingSale -> {

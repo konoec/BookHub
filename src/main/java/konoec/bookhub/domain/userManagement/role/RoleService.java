@@ -44,6 +44,15 @@ public class RoleService {
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
     }
 
+    public void activate(Long roleId) {
+        roleRepository.findById(roleId)
+                .map(role -> {
+                    role.setIsDeleted(false);
+                    return roleRepository.save(role);
+                })
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+    }
+
     public Role addPermission(Long roleId, Long permissionId) {
         Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));

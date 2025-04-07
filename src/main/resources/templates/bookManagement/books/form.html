@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Libro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 th:text="${book.id == null ? 'Nuevo Libro' : 'Editar Libro'}"></h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${book.id == null ? '/books' : '/books/update/' + book.id}"
+                              th:object="${book}" method="post">
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="title" class="form-label">Título</label>
+                                    <input type="text" class="form-control" id="title" th:field="*{title}"
+                                           th:classappend="${#fields.hasErrors('title')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}"
+                                         th:errors="*{title}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="isbn" class="form-label">ISBN</label>
+                                    <input type="text" class="form-control" id="isbn" th:field="*{isbn}"
+                                           th:classappend="${#fields.hasErrors('isbn')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('isbn')}"
+                                         th:errors="*{isbn}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="publicationDate" class="form-label">Fecha de Publicación</label>
+                                    <input type="date" class="form-control" id="publicationDate" th:field="*{publicationDate}"
+                                           th:classappend="${#fields.hasErrors('publicationDate')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('publicationDate')}"
+                                         th:errors="*{publicationDate}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="pageCount" class="form-label">Número de Páginas</label>
+                                    <input type="number" class="form-control" id="pageCount" th:field="*{pageCount}"
+                                           th:classappend="${#fields.hasErrors('pageCount')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('pageCount')}"
+                                         th:errors="*{pageCount}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="author" class="form-label">Autor</label>
+                                    <select class="form-select" id="author" th:field="*{author}"
+                                            th:classappend="${#fields.hasErrors('author')} ? 'is-invalid'">
+                                        <option value="">Selecciona un autor</option>
+                                        <option th:each="author : ${authors}"
+                                                th:value="${author.id}"
+                                                th:text="${author.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}"
+                                         th:errors="*{author}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="publisher" class="form-label">Editorial</label>
+                                    <select class="form-select" id="publisher" th:field="*{publisher}"
+                                            th:classappend="${#fields.hasErrors('publisher')} ? 'is-invalid'">
+                                        <option value="">Selecciona una editorial</option>
+                                        <option th:each="publisher : ${publishers}"
+                                                th:value="${publisher.id}"
+                                                th:text="${publisher.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('publisher')}"
+                                         th:errors="*{publisher}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="language" class="form-label">Idioma</label>
+                                    <select class="form-select" id="language" th:field="*{language}"
+                                            th:classappend="${#fields.hasErrors('language')} ? 'is-invalid'">
+                                        <option value="">Selecciona un idioma</option>
+                                        <option th:each="language : ${languages}"
+                                                th:value="${language.id}"
+                                                th:text="${language.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('language')}"
+                                         th:errors="*{language}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="format" class="form-label">Formato</label>
+                                    <select class="form-select" id="format" th:field="*{format}"
+                                            th:classappend="${#fields.hasErrors('format')} ? 'is-invalid'">
+                                        <option value="">Selecciona un formato</option>
+                                        <option th:each="format : ${formats}"
+                                                th:value="${format.id}"
+                                                th:text="${format.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('format')}"
+                                         th:errors="*{format}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="genres" class="form-label">Géneros</label>
+                                    <select class="form-select" id="genres" th:field="*{genres}" multiple
+                                            th:classappend="${#fields.hasErrors('genres')} ? 'is-invalid'">
+                                        <option th:each="genre : ${genres}"
+                                                th:value="${genre.id}"
+                                                th:text="${genre.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('genres')}"
+                                         th:errors="*{genres}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="keywords" class="form-label">Palabras Clave</label>
+                                    <select class="form-select" id="keywords" th:field="*{keywords}" multiple
+                                            th:classappend="${#fields.hasErrors('keywords')} ? 'is-invalid'">
+                                        <option th:each="keyword : ${keywords}"
+                                                th:value="${keyword.id}"
+                                                th:text="${keyword.name}"></option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('keywords')}"
+                                         th:errors="*{keywords}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label for="width" class="form-label">Ancho (cm)</label>
+                                    <input type="number" step="0.01" class="form-control" id="width" th:field="*{width}"
+                                           th:classappend="${#fields.hasErrors('width')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('width')}"
+                                         th:errors="*{width}"></div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="height" class="form-label">Alto (cm)</label>
+                                    <input type="number" step="0.01" class="form-control" id="height" th:field="*{height}"
+                                           th:classappend="${#fields.hasErrors('height')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('height')}"
+                                         th:errors="*{height}"></div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="depth" class="form-label">Profundidad (cm)</label>
+                                    <input type="number" step="0.01" class="form-control" id="depth" th:field="*{depth}"
+                                           th:classappend="${#fields.hasErrors('depth')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('depth')}"
+                                         th:errors="*{depth}"></div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="weight" class="form-label">Peso (g)</label>
+                                    <input type="number" step="0.01" class="form-control" id="weight" th:field="*{weight}"
+                                           th:classappend="${#fields.hasErrors('weight')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('weight')}"
+                                         th:errors="*{weight}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="edition" class="form-label">Edición</label>
+                                    <input type="text" class="form-control" id="edition" th:field="*{edition}"
+                                           th:classappend="${#fields.hasErrors('edition')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('edition')}"
+                                         th:errors="*{edition}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="series" class="form-label">Serie</label>
+                                    <input type="text" class="form-control" id="series" th:field="*{series}"
+                                           th:classappend="${#fields.hasErrors('series')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('series')}"
+                                         th:errors="*{series}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="sellingPrice" class="form-label">Precio de Venta</label>
+                                    <input type="number" step="0.01" class="form-control" id="sellingPrice" th:field="*{sellingPrice}"
+                                           th:classappend="${#fields.hasErrors('sellingPrice')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('sellingPrice')}"
+                                         th:errors="*{sellingPrice}"></div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="number" class="form-control" id="stock" th:field="*{stock}"
+                                           th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid'">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('stock')}"
+                                         th:errors="*{stock}"></div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">Notas</label>
+                                <textarea class="form-control" id="notes" th:field="*{notes}" rows="3"
+                                         th:classappend="${#fields.hasErrors('notes')} ? 'is-invalid'"></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('notes')}"
+                                     th:errors="*{notes}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="illustrations" th:field="*{illustrations}">
+                                    <label class="form-check-label" for="illustrations">
+                                        Contiene ilustraciones
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="/books" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#genres').select2({
+                placeholder: 'Selecciona los géneros',
+                width: '100%'
+            });
+            $('#keywords').select2({
+                placeholder: 'Selecciona las palabras clave',
+                width: '100%'
+            });
+        });
+    </script>
+</body>
+</html>

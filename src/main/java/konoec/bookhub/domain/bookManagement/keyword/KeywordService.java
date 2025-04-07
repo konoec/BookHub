@@ -26,7 +26,7 @@ public class KeywordService {
     public Keyword update(Long id, Keyword keyword) {
         return keywordRepository.findById(id)
                 .map(existingKeyword -> {
-                    existingKeyword.setKeyword(keyword.getKeyword());
+                    existingKeyword.setName(keyword.getName());
                     return keywordRepository.save(existingKeyword);
                 })
                 .orElseThrow(() -> new RuntimeException("Palabra clave no encontrada"));
@@ -36,6 +36,15 @@ public class KeywordService {
         keywordRepository.findById(id)
                 .map(keyword -> {
                     keyword.setIsDeleted(true);
+                    return keywordRepository.save(keyword);
+                })
+                .orElseThrow(() -> new RuntimeException("Palabra clave no encontrada"));
+    }
+
+    public void activate(Long id) {
+        keywordRepository.findById(id)
+                .map(keyword -> {
+                    keyword.setIsDeleted(false);
                     return keywordRepository.save(keyword);
                 })
                 .orElseThrow(() -> new RuntimeException("Palabra clave no encontrada"));

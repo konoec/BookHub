@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 th:text="${customer.id == null ? 'Nuevo Cliente' : 'Editar Cliente'}"></h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="${customer.id == null ? '/customers' : '/customers/update/' + customer.id}"
+                              th:object="${customer}" method="post">
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="fullName" th:field="*{fullName}"
+                                       th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('fullName')}"
+                                     th:errors="*{fullName}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="documentType" class="form-label">Tipo de Documento</label>
+                                <select class="form-select" id="documentType" th:field="*{documentType}"
+                                        th:classappend="${#fields.hasErrors('documentType')} ? 'is-invalid'">
+                                    <option value="">Seleccione un tipo de documento</option>
+                                    <option th:each="type : ${documentTypes}"
+                                            th:value="${type}"
+                                            th:text="${type}"></option>
+                                </select>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('documentType')}"
+                                     th:errors="*{documentType}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="documentNumber" class="form-label">Número de Documento</label>
+                                <input type="text" class="form-control" id="documentNumber" th:field="*{documentNumber}"
+                                       th:classappend="${#fields.hasErrors('documentNumber')} ? 'is-invalid'">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('documentNumber')}"
+                                     th:errors="*{documentNumber}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" th:field="*{email}"
+                                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}"
+                                     th:errors="*{email}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="phone" th:field="*{phone}"
+                                       th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}"
+                                     th:errors="*{phone}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Dirección</label>
+                                <textarea class="form-control" id="address" th:field="*{address}" rows="3"
+                                          th:classappend="${#fields.hasErrors('address')} ? 'is-invalid'"></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('address')}"
+                                     th:errors="*{address}"></div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a href="/customers" class="btn btn-secondary">Cancelar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Detalle del Cliente</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="fw-bold">ID:</label>
+                            <p th:text="${customer.id}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Nombre Completo:</label>
+                            <p th:text="${customer.fullName}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Tipo de Documento:</label>
+                            <p th:text="${customer.documentType}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Número de Documento:</label>
+                            <p th:text="${customer.documentNumber}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Correo Electrónico:</label>
+                            <p th:text="${customer.email}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Teléfono:</label>
+                            <p th:text="${customer.phone}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Dirección:</label>
+                            <p th:text="${customer.address}"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Estado:</label>
+                            <p>
+                                <span th:if="${customer.isDeleted}" class="badge bg-danger">Inactivo</span>
+                                <span th:unless="${customer.isDeleted}" class="badge bg-success">Activo</span>
+                            </p>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <a th:href="@{/customers/edit/{id}(id=${customer.id})}" class="btn btn-warning">Editar</a>
+                            <a href="/customers" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
